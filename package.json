@@ -4,12 +4,15 @@
   "description": "An inventory application, following The Odin Project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --watch --env-file=.env app.js",
+    "seed": "node --env-file=.env db/populatedb.js",
+    "reset": "node --env-file=.env db/resetdb.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^5.0.1",
     "express": "^5.2.1",
     "pg": "^8.20.0"
   }
