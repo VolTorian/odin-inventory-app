@@ -1,11 +1,10 @@
 const { Client } = require("pg");
 
 const SQL = `
-    DROP TABLE games_developers;
     DROP TABLE games_genres;
-    DROP TABLE developers;
-    DROP TABLE genres;
     DROP TABLE games;
+    DROP TABLE publishers;
+    DROP TABLE genres;
 `;
 
 async function main() {
