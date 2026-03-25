@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Games</title>
+        <!-- <link rel="stylesheet" href="/styles.css"> -->
+    </head>
+    <body>
+        <h2>Games</h2>
+        <ul>
+            <% games.forEach((game) => { %>
+                <li>
+                    <h4><%= game.game_title %></h4>
+                    <div>Publisher: <%= game.publisher_name %></div>
+                    <div>Released: <%= game.year %></div>
+                    <div>Genres: <%= game.genres.join(", ") %></div>
+                </li>
+            <% }); %>
+        </ul>
+    </body>
+</html>
