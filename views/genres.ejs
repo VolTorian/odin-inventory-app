@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Genres</title>
+        <!-- <link rel="stylesheet" href="/styles.css"> -->
+    </head>
+    <body>
+        <h2>Genres</h2>
+        <ul>
+            <% genres.forEach((genre) => { %>
+                <li>
+                    <%= genre.genre_name %>
+                </li>
+            <% }); %>
+        </ul>
+    </body>
+</html>
