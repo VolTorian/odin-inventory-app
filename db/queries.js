@@ -6,6 +6,13 @@ async function getAllGames() {
     return rows;
 }
 
+async function getAllPublishers() {
+    const { rows } = await pool.query("SELECT * FROM publishers");
+
+    return rows;
+}
+
 module.exports = {
-    getAllGames
+    getAllGames,
+    getAllPublishers
 };
