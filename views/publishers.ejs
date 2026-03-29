@@ -5,6 +5,19 @@
     </head>
     <body>
         <h2>Publishers</h2>
+        <% if (locals.errors) {%>
+                <ul>
+                    <% errors.forEach(function(error) { %>
+                        <li><%= error.msg %></li>
+                    <% }); %>
+                </ul>
+        <% } %>
+        <form method="POST" action="/publishers">
+            <label for="newPublisher">Add publisher:</label>
+            <input id="newPublisher" type="text" name="newPublisher" required>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
         <ul>
             <% publishers.forEach((publisher) => { %>
                 <li>
