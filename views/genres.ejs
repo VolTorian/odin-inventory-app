@@ -5,6 +5,19 @@
     </head>
     <body>
         <h2>Genres</h2>
+        <% if (locals.errors) {%>
+                <ul>
+                    <% errors.forEach(function(error) { %>
+                        <li><%= error.msg %></li>
+                    <% }); %>
+                </ul>
+        <% } %>
+        <form method="POST" action="/genres">
+            <label for="newGenre">Add genre:</label>
+            <input id="newGenre" type="text" name="newGenre" required>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
         <ul>
             <% genres.forEach((genre) => { %>
                 <li>

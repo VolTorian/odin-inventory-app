@@ -22,9 +22,14 @@ async function addPublisher(publisherName) {
     await pool.query("INSERT INTO publishers (publisher_name) VALUES ($1)", [publisherName]);
 }
 
+async function addGenre(genreName) {
+    await pool.query("INSERT INTO genres (genre_name) VALUES ($1)", [genreName]);
+}
+
 module.exports = {
     getAllGames,
     getAllPublishers,
     getAllGenres,
-    addPublisher
+    addPublisher,
+    addGenre
 };
