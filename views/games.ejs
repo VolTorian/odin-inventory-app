@@ -18,6 +18,7 @@
             <label for="chosenPublisher">Publisher:</label>
             <select id="chosenPublisher" name="chosenPublisher" required>
                 <option value="" selected disabled hidden>Select a publisher</option>
+                <option value="TEST PUBLISHER" >Test value not in database</option>
                 <% publishers.forEach((publisher) => { %>
                     <option value="<%= publisher.publisher_name %>"><%= publisher.publisher_name %></option>
                 <% }); %>
