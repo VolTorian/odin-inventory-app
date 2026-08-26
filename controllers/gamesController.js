@@ -27,6 +27,11 @@ const validateChosenPublisher = [
     })
 ]
 
+const validateYear = [
+    body("yearReleased").isInt({ min: 1958, max: 2099 })
+        .withMessage("Please enter a valid release year")
+]
+
 const validateChosenGenres = [
     body("chosenGenres").custom(async (chosenGenres) => {
         const genresList = (await db.getAllGenres()).map(item => item.genre_name);
@@ -47,6 +52,7 @@ const validateChosenGenres = [
 addGamesPost = [
     validateTitle,
     validateChosenPublisher,
+    validateYear,
     validateChosenGenres,
     async (req, res) => {
         const errors = validationResult(req);
