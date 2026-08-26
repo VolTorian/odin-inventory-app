@@ -18,6 +18,31 @@ async function getAllGenres() {
     return rows;
 }
 
+async function addGame(title, publisher, year, genres) {
+    console.log("in queries adding game")
+
+    const client = await pool.connect();
+    try {
+        await client.query("BEGIN");
+        await client.query("INSERT INTO games (game_title, year, publisher_name) VALUES ($1, $2, $3)", [title, year, publisher]);
+        for (const genre of genres) {
+            await client.query(`INSERT INTO games_genres (game_id, genre_name) VALUES
+                ((SELECT id FROM games WHERE game_title = ($1) AND publisher_name = ($2)), ($3))`,
+                [title, publisher, genre]);
+        }
+        await client.query("COMMIT");
+    }
+    catch (e) {
+        await client.query("ROLLBACK");
+        console.log(`Error in transaction for adding game!`)
+        throw e;
+    }
+    finally {
+        client.release();
+    }
+    
+}
+
 async function addPublisher(publisherName) {
     await pool.query("INSERT INTO publishers (publisher_name) VALUES ($1)", [publisherName]);
 }
@@ -30,6 +55,7 @@ module.exports = {
     getAllGames,
     getAllPublishers,
     getAllGenres,
+    addGame,
     addPublisher,
     addGenre
 };

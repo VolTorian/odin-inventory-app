@@ -4,7 +4,6 @@ const db = require("../db/queries");
 async function addGamesGet(req, res) {
     const genresList = await db.getAllGenres();
     const publishersList = await db.getAllPublishers();
-    // console.log(publishersList)
 
     res.render("games", { genres: genresList, publishers: publishersList });
 }
@@ -66,9 +65,20 @@ addGamesPost = [
                 publishers: publishersList
             });
         }
-        console.log("SUBMITTED")
-        const { newGame, test2} = matchedData(req);
-        console.log(matchedData(req))
+
+        const { title, chosenPublisher, yearReleased, chosenGenres} = matchedData(req);
+        try {
+            if (!Array.isArray(chosenGenres)) {
+                await db.addGame(title, chosenPublisher, yearReleased, [chosenGenres]);
+            }
+            else {
+                await db.addGame(title, chosenPublisher, yearReleased, chosenGenres);
+            }
+        }
+        catch (queryError) {
+            console.log("Error adding game")
+            console.log(queryError)
+        }
 
         res.redirect("/");
     }
