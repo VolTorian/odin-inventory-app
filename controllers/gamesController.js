@@ -19,7 +19,7 @@ const validateChosenPublisher = [
         const publishersList = await db.getAllPublishers();
 
         if (!publishersList.map(item => item.publisher_name).includes(publisher)) {
-            throw new Error("Publisher not found. Please add it first");
+            throw new Error("Publisher not found. Please add it first"); //normal users shouldn't reach here..?
         }
         else {
             console.log("valid existing publisher selected")
@@ -27,9 +27,27 @@ const validateChosenPublisher = [
     })
 ]
 
+const validateChosenGenres = [
+    body("chosenGenres").custom(async (chosenGenres) => {
+        const genresList = (await db.getAllGenres()).map(item => item.genre_name);
+
+        if (!Array.isArray(chosenGenres)) {
+            chosenGenres = [chosenGenres];
+        }
+
+        if (!chosenGenres.every((genre) => genresList.includes(genre))) {
+            throw new Error("Genre not found. Please add it first"); //normal users shouldn't reach here..?
+        }
+        else {
+            console.log("all selected genres valid");
+        }
+    })
+]
+
 addGamesPost = [
     validateTitle,
     validateChosenPublisher,
+    validateChosenGenres,
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
