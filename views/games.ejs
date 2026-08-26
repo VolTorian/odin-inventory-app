@@ -4,20 +4,31 @@
     </head>
     <body>
         <h2>Add a Game</h2>
+        <% if (locals.errors) { %>
+            <ul>
+                <% errors.forEach((error) => { %>
+                    <li><%= error.msg %></li>
+                <% }); %>
+            </ul>
+        <% } %>
         <form method="POST" action="/games">
-            <label for="newGame">Game title:</label>
-            <input id="newGame" type="text" name="newGame" required>
+            <label for="title">Game title:</label>
+            <input id="title" type="text" name="title" required>
             <br>
             <label for="chosenPublisher">Publisher:</label>
             <select id="chosenPublisher" name="chosenPublisher" required>
+                <option value="" selected disabled hidden>Select a publisher</option>
                 <% publishers.forEach((publisher) => { %>
                     <option value="<%= publisher.publisher_name %>"><%= publisher.publisher_name %></option>
                 <% }); %>
             </select>
             <br>
+            <label for="yearReleased">Year released</label>
+            <input id="yearReleased" name="yearReleased" type="number" min="1958" max="2099" value="2026" required>
+            <br>
             <label for="chosenGenres">Genre(s), hold down CTRL (Windows) or Command (Mac) for multiple selection:</label>
             <br>
-            <select id="chosenGenres" name="chosenGenres" multiple>
+            <select id="chosenGenres" name="chosenGenres" multiple required>
                 <% genres.forEach((genre) => { %>
                     <option value="<%= genre.genre_name %>"><%= genre.genre_name %></option>
                 <% }); %>

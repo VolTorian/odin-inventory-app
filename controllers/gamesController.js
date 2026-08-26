@@ -13,6 +13,26 @@ const validateTitle = [
         .isLength({ min: 1, max: 255 }).withMessage("Game title is required")
 ]
 
+addGamesPost = [
+    validateTitle,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const genresList = await db.getAllGenres();
+            const publishersList = await db.getAllPublishers();
+
+            return res.status(400).render("games", {
+                errors: errors.array(),
+                genres: genresList,
+                publishers: publishersList
+            });
+        }
+
+        res.redirect("/");
+    }
+]
+
 module.exports = {
-    addGamesGet
+    addGamesGet,
+    addGamesPost
 }
