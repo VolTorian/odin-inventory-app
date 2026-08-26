@@ -2,7 +2,10 @@ const { body, validationResult, matchedData } = require("express-validator");
 const db = require("../db/queries");
 
 async function addGamesGet(req, res) {
-    res.render("games");
+    const genresList = await db.getAllGenres();
+    const publishersList = await db.getAllPublishers();
+
+    res.render("games", { genres: genresList, publishers: publishersList });
 }
 
 const validateTitle = [

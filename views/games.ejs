@@ -8,6 +8,21 @@
             <label for="newGame">Game title:</label>
             <input id="newGame" type="text" name="newGame" required>
             <br>
+            <label for="chosenPublisher">Publisher:</label>
+            <select id="chosenPublisher" name="chosenPublisher" required>
+                <% publishers.forEach((publisher) => { %>
+                    <option value="<%= publisher.publisher_name %>"><%= publisher.publisher_name %></option>
+                <% }); %>
+            </select>
+            <br>
+            <label for="chosenGenres">Genre(s), hold down CTRL (Windows) or Command (Mac) for multiple selection:</label>
+            <br>
+            <select id="chosenGenres" name="chosenGenres" multiple>
+                <% genres.forEach((genre) => { %>
+                    <option value="<%= genre.genre_name %>"><%= genre.genre_name %></option>
+                <% }); %>
+            </select>
+            <br>
             <input type="submit" value="Submit">
         </form>
     </body>
